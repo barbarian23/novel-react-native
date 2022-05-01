@@ -1,9 +1,10 @@
+import React from 'react';
 import { Text, StyleSheet } from "react-native";
 
-function HomeTab(){
+function AboutTab(){
   return(
     <>
-      <Text>HomeTab</Text>
+      <Text>AboutTab</Text>
     </>
   );
 }
@@ -27,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeTab;
+export default AboutTab;

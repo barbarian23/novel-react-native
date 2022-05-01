@@ -1,9 +1,10 @@
+import React from 'react';
 import { Text, StyleSheet } from "react-native";
 
-function ProfileTab(){
+function LibraryTab(){
   return(
     <>
-      <Text>ProfileTab</Text>
+      <Text>LibraryTab</Text>
     </>
   );
 }
@@ -27,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileTab;
+export default LibraryTab;
