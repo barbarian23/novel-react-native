@@ -12,32 +12,35 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Splash, Home } from "./src/screen";
 const Stack = createStackNavigator();
 
-// import { createStore, applyMiddleware } from 'redux'
-// import createSagaMiddleware from 'redux-saga'
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './src/saga';
+import rootReducer from './src/reducer';
 
-// import {  } from './sagas'
-
-// const sagaMiddleware = createSagaMiddleware()
-// const store = createStore(
-//   reducer,
-//   applyMiddleware(sagaMiddleware)
-// )
-// sagaMiddleware.run(helloSaga)
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(
+  rootReducer,
+  applyMiddleware(sagaMiddleware)
+)
+sagaMiddleware.run(rootSaga)
 
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen 
-          name="Home" 
-          component={Home}
-          options={{
-            headerShown: false
-          }} />
-        <Stack.Screen name="Splash" component={Splash} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{
+              headerShown: false
+            }} />
+          <Stack.Screen name="Splash" component={Splash} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
