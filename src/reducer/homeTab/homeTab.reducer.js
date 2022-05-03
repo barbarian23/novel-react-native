@@ -2,7 +2,7 @@ import {
     GET_LASTEST_RELEASE_FAIL, 
     GET_LASTEST_RELEASE_SUCCESS, 
     SEARCH_KEYWORD_CHANGE,
-} from "../../action/homeTab/homeTab.actions";
+} from "../../action/homeTab/homeTab.action";
 
 const initialState = {
     lastestReleaseItems: [

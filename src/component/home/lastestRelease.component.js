@@ -5,6 +5,7 @@ import { Link } from '@react-navigation/native';
 
 function LastestRelease() {
     let { lastestReleaseItems } = useSelector(state => state.homeTab);
+    
     const renderItem = (item) => {
         return (<View style={styles.item}>
             <View style={styles.pictureSection}>

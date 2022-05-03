@@ -9,7 +9,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Splash, Home } from "./src/screen";
+import { SeeAll, Home } from "./src/screen";
 const Stack = createStackNavigator();
 
 import { Provider } from 'react-redux';
@@ -37,7 +37,12 @@ const App = () => {
             options={{
               headerShown: false
             }} />
-          <Stack.Screen name="Splash" component={Splash} />
+          <Stack.Screen 
+            name="SeeAll" 
+            component={SeeAll}
+            options={{
+              headerShown: false
+            }} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
