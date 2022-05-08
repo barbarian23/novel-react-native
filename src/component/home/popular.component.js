@@ -1,19 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect }  from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-    GET_LASTEST_RELEASE_NOVELS
+    GET_POPULAR_NOVELS
 } from "../../action/homeTab/homeTab.action";
 import { Text, View, Image, StyleSheet } from "react-native";
 import { Link } from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
 import { date2daystr } from '../../service/util';
 
-function LastestRelease() {
-    let { lastestReleaseNovels, isLoadingLastestReleaseNovels } = useSelector(state => state.homeTab);
-
+function Popular() {
+    let { popularNovels, isLoadingPopularNovels } = useSelector(state => state.homeTab);
     let dispatch = useDispatch();
     useEffect(() => {
-        dispatch({ type: GET_LASTEST_RELEASE_NOVELS });
+        dispatch({ type: GET_POPULAR_NOVELS });
     }, []);
 
     const renderItem = (item) => {
@@ -46,20 +45,19 @@ function LastestRelease() {
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.titleSection}>
-                    <Text style={styles.title}>Lastest Release</Text>
+                    <Text style={styles.title}>Popular</Text>
                 </View>
                 <View style={styles.linkSection}>
                     <Link style={styles.link} to={{ screen: 'SeeAll' }}>See All</Link>
                 </View>
             </View>
 
-
-            {isLoadingLastestReleaseNovels
+            {isLoadingPopularNovels
                 ? <View style={styles.loading}>
                     <Progress.Circle size={35} indeterminate={true} />
                 </View>
                 : <View style={styles.listView}>
-                    {lastestReleaseNovels.map((item, index) => {
+                    {popularNovels.map((item, index) => {
                         return <React.Fragment key={index}>
                             {renderItem(item)}
                         </React.Fragment>
@@ -102,7 +100,7 @@ const styles = StyleSheet.create({
     },
     loading: {
         alignItems: "center",
-    },
+    },  
     item: {
         flexDirection: "row",
         marginVertical: 8,
@@ -141,4 +139,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default LastestRelease;
+export default Popular;

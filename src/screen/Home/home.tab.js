@@ -1,7 +1,8 @@
 import React from 'react';
 import { ScrollView, StyleSheet, StatusBar } from "react-native";
-import LastestRelease from '../../component/home/lastestRelease.component';
 import SearchBar from '../../component/home/searchBar.component';
+import LastestRelease from '../../component/home/lastestRelease.component';
+import Popular from '../../component/home/popular.component';
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -28,6 +29,7 @@ function HomeTab() {
       <StatusBar backgroundColor="#15415C" />
       <SearchBar />
       <LastestRelease />
+      <Popular />
     </ScrollView>
   );
 }

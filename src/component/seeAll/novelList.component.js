@@ -46,7 +46,7 @@ function NovelList() {
                             type='star'
                             ratingBackgroundColor="#FFF"
                             ratingCount={5}
-                            imageSize={15}
+                            imageSize={17}
                             readonly
                             startingValue={novel.rating}
                             onFinishRating={()=>{}}
