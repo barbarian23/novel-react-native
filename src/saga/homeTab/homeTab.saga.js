@@ -7,12 +7,12 @@ import {
     GET_POPULAR_NOVELS_FAIL,
     GET_POPULAR_NOVELS_SUCCESS,
 } from "../../action/homeTab/homeTab.action";
-import { getNewestNovels, getHotestNovels } from '../../service/api/novel.api';
+import { getLastestReleaseNovels, getPopularNovels } from '../../service/api/novel.api';
 
 function* getNewestNovelsSaga({ value }) {
     // yield put({type: START_LOADING_TABLE_DATA});
     try {
-        const response = yield call(getNewestNovels);
+        const response = yield call(getLastestReleaseNovels);
         if (response.status === 200) {
             const { success, data } =  response.data;
             if (success) {
@@ -47,7 +47,7 @@ function* getNewestNovelsSaga({ value }) {
 function* getPopularNovelsSaga({ value }) {
     // yield put({type: START_LOADING_TABLE_DATA});
     try {
-        const response = yield call(getHotestNovels);
+        const response = yield call(getPopularNovels);
         if (response.status === 200) {
             const { success, data } =  response.data;
             if (success) {

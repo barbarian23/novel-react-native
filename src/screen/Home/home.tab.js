@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, StatusBar } from "react-native";
+import { View, ScrollView, StyleSheet, StatusBar } from "react-native";
 import SearchBar from '../../component/home/searchBar.component';
 import LastestRelease from '../../component/home/lastestRelease.component';
 import Popular from '../../component/home/popular.component';
@@ -25,12 +25,14 @@ const styles = StyleSheet.create({
 
 function HomeTab() {
   return (
-    <ScrollView>
-      <StatusBar backgroundColor="#15415C" />
+    <View>
       <SearchBar />
-      <LastestRelease />
-      <Popular />
-    </ScrollView>
+      <ScrollView>
+        <StatusBar backgroundColor="#15415C" />
+        <LastestRelease />
+        <Popular />
+      </ScrollView>
+    </View>
   );
 }
 

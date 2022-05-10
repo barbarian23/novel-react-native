@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, StyleSheet} from "react-native";
-import {Header, Categories, Tags, NovelList} from '../../component/seeAll';
+import {Header, Genres, Types, NovelList} from '../../component/seeAll';
 
 function SeeAll({navigation}) {
 
   return (
     <View style={styles.container}>
         <Header navigation={navigation}/>
-        <Categories/>
-        <Tags />
+        <Genres/>
+        <Types />
         <NovelList />
     </View>
   );

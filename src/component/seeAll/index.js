@@ -1,12 +1,12 @@
 
 import Header from "./header.component";
-import Categories from "./categories.component";
-import Tags from "./tags.components";
+import Genres from "./genres.component";
+import Types from "./types.components";
 import NovelList from "./novelList.component";
 
 export {
     Header,
-    Categories,
-    Tags,
+    Genres,
+    Types,
     NovelList,
 }

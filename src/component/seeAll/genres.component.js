@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, ScrollView, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
-import { SELECT_CATEGORY } from '../../action/seeAll/seeAll.action';
+import { SELECT_GENRE } from '../../action/seeAll/seeAll.action';
 
-function Tags() {
-    let { categories, selectedCategory } = useSelector(state => state.seeAll);
+function Genres() {
+    let { genres, selectedGenre } = useSelector(state => state.seeAll);
     let dispatch = useDispatch();
 
-    const onCategoryClicked = (category) => {
-        dispatch({ type: SELECT_CATEGORY, value: category })
+    const onGenreClicked = (genre) => {
+        dispatch({ type: SELECT_GENRE, value: genre })
     }
 
     return (
@@ -17,23 +17,23 @@ function Tags() {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 style={styles.scrollView}>
-                {categories.map((category, index) => {
-                    if (selectedCategory === category) {
+                {genres.map((genre, index) => {
+                    if (selectedGenre === genre) {
                         return <TouchableOpacity
                             key={index}
                             style={styles.selectedItem}>
 
                             <Text style={styles.selectedLabel}>
-                                {category}
+                                {genre}
                             </Text>
                         </TouchableOpacity>
                     } else {
                         return <TouchableOpacity
                             key={index}
                             style={styles.item}
-                            onPress={() => onCategoryClicked(category)}>
+                            onPress={() => onGenreClicked(genre)}>
                             <Text style={styles.label}>
-                                {category}
+                                {genre}
                             </Text>
                         </TouchableOpacity>
                     }
@@ -75,5 +75,5 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Tags;
+export default Genres;
 

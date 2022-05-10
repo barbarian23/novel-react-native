@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, ScrollView, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
-import { SELECT_TAG } from '../../action/seeAll/seeAll.action';
+import { SELECT_TYPE } from '../../action/seeAll/seeAll.action';
 
-function Tags() {
-    let { tags, selectedTag } = useSelector(state => state.seeAll);
+function Types() {
+    let { types, selectedType } = useSelector(state => state.seeAll);
     let dispatch = useDispatch();
 
-    const onTagClicked = (tag) => {
-        dispatch({ type: SELECT_TAG, value: tag })
+    const onTypeClicked = (tag) => {
+        dispatch({ type: SELECT_TYPE, value: tag })
     }
 
     return (
@@ -17,8 +17,8 @@ function Tags() {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 style={styles.scrollView}>
-                {tags.map((tag, index) => {
-                    if (selectedTag === tag) {
+                {types.map((tag, index) => {
+                    if (selectedType === tag) {
                         return <TouchableOpacity
                             key={index}
                             style={styles.selectedItem}>
@@ -30,7 +30,7 @@ function Tags() {
                         return <TouchableOpacity
                             key={index}
                             style={styles.item}
-                            onPress={()=> onTagClicked(tag)}>
+                            onPress={()=> onTypeClicked(tag)}>
                             <Text style={styles.label}>
                                 {tag}
                             </Text>
@@ -75,5 +75,5 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Tags;
+export default Types;
 

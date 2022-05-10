@@ -1,11 +1,18 @@
-import React from 'react';
-import { View, ScrollView, Text, Image, StyleSheet } from "react-native";
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import {
+    SEARCH_NOVELS
+} from "../../action/seeAll/seeAll.action";
+import { View, ScrollView, Text, Image, StyleSheet } from "react-native";
 import { Rating } from 'react-native-ratings';
 
 function NovelList() {
     let { novels } = useSelector(state => state.seeAll);
+    let dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({ type: SEARCH_NOVELS });
+    }, []);
 
     const renderNovel = (novel) => {
         return (
@@ -13,7 +20,7 @@ function NovelList() {
                 <View style={styles.pictureSection}>
                     <Image style={styles.novelPicture}
                         source={{
-                            uri: novel.picture,
+                            uri: `https://media.novelextra.com/novel_150_223/${novel.novel_id}.jpg`,
                         }}
                     />
                 </View>
@@ -22,20 +29,20 @@ function NovelList() {
                     <Text
                         style={styles.novelName}
                         numberOfLines={2}>
-                        {novel.name}
+                        {novel.novel_name}
                     </Text>
                     <Text
                         style={styles.novelAuthor}
                         numberOfLines={1}>
-                        {novel.author} | {novel.category}
+                        {novel.novel_author} | {novel.novel_genres[0]}
                     </Text>
                     <View style={styles.novelTags}>
-                        {novel.tags.map((tag, index) => {
+                        {novel.novel_genres.map((genre, index) => {
                             return (
                                 <View
-                                    style={styles.tag}
+                                    style={styles.genre}
                                     key={index}>
-                                    <Text style={styles.tagLabel}>{tag}</Text>
+                                    <Text style={styles.genreLabel}>{genre}</Text>
                                 </View>
                             )
                         })}
@@ -48,11 +55,12 @@ function NovelList() {
                             ratingCount={5}
                             imageSize={17}
                             readonly
-                            startingValue={novel.rating}
-                            onFinishRating={()=>{}}
+                            startingValue={
+                                (parseFloat(novel.avgPointType2.$numberDecimal)/2).toFixed(1)}
+                            onFinishRating={() => { }}
                         />
                         <Text style={styles.ratingLabel}>
-                            {novel.rating}
+                            {(parseFloat(novel.avgPointType2.$numberDecimal)/2).toFixed(1)}
                         </Text>
                     </View>
                 </View>
@@ -116,7 +124,7 @@ const styles = StyleSheet.create({
         marginVertical: 2,
         flexDirection: 'row',
     },
-    tag: {
+    genre: {
         height: 30,
         marginHorizontal: 5,
         paddingTop: 2,
@@ -125,7 +133,7 @@ const styles = StyleSheet.create({
         borderColor: "#93BFD4",
         borderRadius: 15,
     },
-    tagLabel: {
+    genreLabel: {
         color: '#93BFD4',
         fontWeight: '400'
     },

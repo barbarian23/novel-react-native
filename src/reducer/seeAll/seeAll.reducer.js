@@ -1,17 +1,25 @@
 import {
     SHOW_COMPLETED_NOVELS_ONLY,
     HIDE_COMPLETED_NOVELS_ONLY,
-    SELECT_CATEGORY,
-    SELECT_TAG,
+    SELECT_GENRE,
+    SELECT_TYPE,
+    START_LOADING_NOVELS,
+    STOP_LOADING_NOVELS,
+    SEARCH_NOVELS,
+    SEARCH_NOVELS_SUCCESS,
+    SEARCH_NOVELS_FAIL,
 } from "../../action/seeAll/seeAll.action";
 
 const initialState = {
     isShowCompletedNovelOnly: false,
 
-    categories: ['All', 'Action', 'Adult', 'Adventure', 'Ai', 'Bender', 'Chinese', 'Comedy', 'Drama', 'Ecchi', 'Fantasy', 'Game', 'Gender', 'Harem'],
-    selectedCategory: 'All',
-    tags: ['Popular', 'New', 'Hot', 'Chapters'],
-    selectedTag: 'Chapters',
+    genres: ['All', 'Tragedy', 'Fantasy', 'Shounen Ai', 'Josei', 'Historical', 'Horror', 'Action', 'Adult', 'Adventure', 'Ai', 'Bender', 'Chinese', 'Comedy', 'Drama', 'Ecchi', 'Game', 'Gender', 'Harem'],
+    selectedGenre: 'All',
+    types: ['Popular', 'New', 'Hot', 'Chapters'],
+    selectedType: 'Popular',
+    page: 1,
+
+    isLoadingNovels: false,
 
     novels: [
         {
@@ -141,17 +149,39 @@ export default function seeAllReducer(state = initialState, action) {
                 ...state,
                 isShowCompletedNovelOnly: false
             }
-        case SELECT_CATEGORY:
+        case SELECT_GENRE:
             return {
                 ...state,
-                selectedCategory: action.value,
+                selectedGenre: action.value,
             }
-        case SELECT_TAG:
+        case SELECT_TYPE:
             return {
                 ...state,
-                selectedTag: action.value,
+                selectedType: action.value,
             }
 
+        case START_LOADING_NOVELS:
+            return {
+                ...state,
+                isLoadingNovels: true,
+            }
+
+        case STOP_LOADING_NOVELS:
+            return {
+                ...state,
+                isLoadingNovels: false,
+            }
+
+        case SEARCH_NOVELS_FAIL:
+            return {
+                ...state,
+                novels: [],
+            }
+        case SEARCH_NOVELS_SUCCESS:
+            return {
+                ...state,
+                novels: action.value,
+            }
         default:
             return {
                 ...state
