@@ -16,7 +16,7 @@ function SeeAll({navigation}) {
 
 const styles = StyleSheet.create({
     container:{
-        // flexDirection: "column",
+      flexDirection: "column",
       backgroundColor: "#FFF",
     }
 });

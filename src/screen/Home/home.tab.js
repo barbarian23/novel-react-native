@@ -4,28 +4,9 @@ import SearchBar from '../../component/home/searchBar.component';
 import LastestRelease from '../../component/home/lastestRelease.component';
 import Popular from '../../component/home/popular.component';
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
 function HomeTab() {
   return (
-    <View>
+    <View style={styles.container}>
       <SearchBar />
       <ScrollView>
         <StatusBar backgroundColor="#15415C" />
@@ -35,5 +16,11 @@ function HomeTab() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingBottom : 60,
+  },
+});
 
 export default HomeTab;

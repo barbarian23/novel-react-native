@@ -1,18 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+    SEARCH_APPEND_NOVELS,
     SEARCH_NOVELS
 } from "../../action/seeAll/seeAll.action";
-import { View, ScrollView, Text, Image, StyleSheet } from "react-native";
+import { View, SafeAreaView, ScrollView, FlatList, RefreshControl, Text, Image, StyleSheet } from "react-native";
 import { Rating } from 'react-native-ratings';
+import * as Progress from 'react-native-progress';
 
 function NovelList() {
-    let { novels } = useSelector(state => state.seeAll);
+    let { novels, isLoadingNovels, isLoadingAppendNovels } = useSelector(state => state.seeAll);
     let dispatch = useDispatch();
 
     useEffect(() => {
         dispatch({ type: SEARCH_NOVELS });
     }, []);
+
+    // const onRefresh = useCallback(() => {
+    //     dispatch({ type: SEARCH_NOVELS });
+    // }, []);
+
+    const onRefresh = () => {
+        dispatch({ type: SEARCH_NOVELS });
+    }
+
+    const onListEndReached = () => {
+        dispatch({ type: SEARCH_APPEND_NOVELS });
+    }
 
     const renderNovel = (novel) => {
         return (
@@ -34,17 +48,22 @@ function NovelList() {
                     <Text
                         style={styles.novelAuthor}
                         numberOfLines={1}>
-                        {novel.novel_author} | {novel.novel_genres[0]}
+                        {novel.novel_author} | {novel.novel_genres.length > 0 ? novel.novel_genres[0] : ''}
                     </Text>
                     <View style={styles.novelTags}>
                         {novel.novel_genres.map((genre, index) => {
-                            return (
-                                <View
-                                    style={styles.genre}
-                                    key={index}>
-                                    <Text style={styles.genreLabel}>{genre}</Text>
-                                </View>
-                            )
+                            if (index) {
+                                return (
+                                    <View
+                                        style={styles.genre}
+                                        key={index}>
+                                        <Text style={styles.genreLabel}>{genre}</Text>
+                                    </View>
+                                )
+                            } else {
+                                return null;
+                            }
+
                         })}
 
                     </View>
@@ -56,11 +75,11 @@ function NovelList() {
                             imageSize={17}
                             readonly
                             startingValue={
-                                (parseFloat(novel.avgPointType2.$numberDecimal)/2).toFixed(1)}
+                                (parseFloat(novel.avgPointType2.$numberDecimal) / 2).toFixed(1)}
                             onFinishRating={() => { }}
                         />
                         <Text style={styles.ratingLabel}>
-                            {(parseFloat(novel.avgPointType2.$numberDecimal)/2).toFixed(1)}
+                            {(parseFloat(novel.avgPointType2.$numberDecimal) / 2).toFixed(1)}
                         </Text>
                     </View>
                 </View>
@@ -69,21 +88,56 @@ function NovelList() {
     }
 
     return (
-        <View style={styles.container}>
-            <ScrollView>
+        <SafeAreaView style={styles.container}>
+            {/* <ScrollView 
+                style={styles.scrollView}
+                refreshControl={
+                    <RefreshControl
+                      refreshing={isLoadingNovels}
+                      onRefresh={onRefresh}
+                    />
+                  }
+                >
                 {novels.map((novel, index) => {
                     return <React.Fragment key={index}>
                         {renderNovel(novel)}
                     </React.Fragment>
                 })}
-            </ScrollView>
-        </View>
+
+                {isLoadingAppendNovels
+                    ? <View style={styles.loading}>
+                        <Progress.Circle size={35} indeterminate={true} />
+                    </View>
+                    : null}
+            </ScrollView> */}
+            <FlatList
+                data={novels}
+                renderItem={({ item, index, separators }) => (
+                    <React.Fragment key={index}>
+                        {renderNovel(item)}
+                    </React.Fragment>
+                )}
+                refreshing={isLoadingNovels}
+                onRefresh={onRefresh}
+                onEndReached={onListEndReached}
+                onEndReachedThreshold={0.5}
+            />
+
+            {isLoadingAppendNovels
+                ? <View style={styles.loading}>
+                    <Progress.Circle size={35} indeterminate={true} />
+                </View>
+                : null}
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 20,
+    },
+    scrollView: {
+        marginBottom: 310,
     },
     novel: {
         flexDirection: "row",
@@ -147,6 +201,16 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginHorizontal: 5,
         // top: -5,
+    },
+    loading: {
+        // flex: 1,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        opacity: 0.9,
+        backgroundColor: 'white',
+        alignItems: "center",
+        width: '100%'
     },
 });
 

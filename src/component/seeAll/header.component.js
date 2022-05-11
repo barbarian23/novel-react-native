@@ -1,12 +1,24 @@
-import React, {useState} from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  SHOW_COMPLETED_NOVELS_ONLY,
+  HIDE_COMPLETED_NOVELS_ONLY,
+  TOGGLE_COMPLETED_NOVELS_ONLY,
+} from "../../action/seeAll/seeAll.action";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import CheckBox from '@react-native-community/checkbox';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 function Header({ navigation }) {
-  const [isSelected, setSelection] = useState(false);
+  let { isShowCompletedNovelOnly } = useSelector(state => state.seeAll);
+  let dispatch = useDispatch();
+
   const onBackBtnClicked = () => {
     navigation.goBack();
+  }
+
+  const onCheckboxClicked = () => {
+    dispatch({ type: TOGGLE_COMPLETED_NOVELS_ONLY });
   }
 
   return (
@@ -19,8 +31,8 @@ function Header({ navigation }) {
 
       <View style={styles.showCompleteSection}>
         <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
+          value={isShowCompletedNovelOnly}
+          onValueChange={onCheckboxClicked}
           style={styles.checkBox}
         />
         <Text style={styles.label}>Show completed novels only</Text>
