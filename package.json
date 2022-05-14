@@ -17,6 +17,7 @@
     "axios": "^0.27.2",
     "react": "^17.0.2",
     "react-native": "0.68.1",
+    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.4.1",
     "react-native-progress": "^5.0.0",
     "react-native-ratings": "^8.1.0",

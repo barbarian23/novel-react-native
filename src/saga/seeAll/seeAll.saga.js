@@ -27,7 +27,7 @@ function* searchNovelsSaga({ value }) {
         if (response.status === 200) {
             const { success, data } =  response.data;
             if (success) {
-                console.log(data);
+                // console.log(data);
                 yield put({
                     type: SEARCH_NOVELS_SUCCESS,
                     value: data,
@@ -67,7 +67,7 @@ function* searchAppendNovelsSaga({ value }) {
         if (response.status === 200) {
             const { success, data } =  response.data;
             if (success) {
-                console.log(data);
+                // console.log(data);
                 yield put({
                     type: SEARCH_APPEND_NOVELS_SUCCESS,
                     value: data,

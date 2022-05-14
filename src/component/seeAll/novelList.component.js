@@ -89,27 +89,6 @@ function NovelList() {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* <ScrollView 
-                style={styles.scrollView}
-                refreshControl={
-                    <RefreshControl
-                      refreshing={isLoadingNovels}
-                      onRefresh={onRefresh}
-                    />
-                  }
-                >
-                {novels.map((novel, index) => {
-                    return <React.Fragment key={index}>
-                        {renderNovel(novel)}
-                    </React.Fragment>
-                })}
-
-                {isLoadingAppendNovels
-                    ? <View style={styles.loading}>
-                        <Progress.Circle size={35} indeterminate={true} />
-                    </View>
-                    : null}
-            </ScrollView> */}
             <FlatList
                 data={novels}
                 renderItem={({ item, index, separators }) => (

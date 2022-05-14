@@ -1,30 +1,21 @@
 import React from 'react';
-import { Text, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, StatusBar } from "react-native";
+import SearchBar from '../../component/library/searchBar.component';
 
-function LibraryTab(){
-  return(
-    <>
-      <Text>LibraryTab</Text>
-    </>
+function LibraryTab() {
+  return (
+    <View style={styles.container}>
+      <SearchBar />
+      <ScrollView>
+        <StatusBar backgroundColor="#15415C" />
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  container: {
+    paddingBottom : 60,
   },
 });
 

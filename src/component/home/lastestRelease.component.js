@@ -3,7 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     GET_LASTEST_RELEASE_NOVELS
 } from "../../action/homeTab/homeTab.action";
-import { Text, View, Image, StyleSheet } from "react-native";
+import {
+    GET_CHAPTERS,
+    ADD_CHAPTER
+} from "../../action/history/history.action";
+import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Link } from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
 import { date2daystr } from '../../service/util';
@@ -14,7 +18,22 @@ function LastestRelease() {
     let dispatch = useDispatch();
     useEffect(() => {
         dispatch({ type: GET_LASTEST_RELEASE_NOVELS });
+        dispatch({ type: GET_CHAPTERS });
     }, []);
+
+    const onNovelPressed = (novel) => {
+        dispatch({
+            type: ADD_CHAPTER,
+            value: {
+                novel_id: novel.novel_id,
+                novel_name: novel.novel_name,
+                totalChapter: novel.totalChapter,
+                crawler_date: novel.crawler_date,
+                chapter_id: novel.chapter_id,
+                chapter_name: novel.recentChapter.chapter_name,
+            }
+        });
+    }
 
     const renderItem = (item) => {
         return (<View style={styles.item}>
@@ -60,9 +79,9 @@ function LastestRelease() {
                 </View>
                 : <View style={styles.listView}>
                     {lastestReleaseNovels.map((item, index) => {
-                        return <React.Fragment key={index}>
+                        return <TouchableOpacity key={index} onPress={()=> {onNovelPressed(item)}}>
                             {renderItem(item)}
-                        </React.Fragment>
+                        </TouchableOpacity>
                     })}
                 </View>
             }
