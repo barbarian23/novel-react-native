@@ -29,7 +29,7 @@ function LastestRelease() {
                 novel_name: novel.novel_name,
                 totalChapter: novel.totalChapter,
                 crawler_date: novel.crawler_date,
-                chapter_id: novel.chapter_id,
+                chapter_id: novel.recentChapter.chapter_id,
                 chapter_name: novel.recentChapter.chapter_name,
             }
         });

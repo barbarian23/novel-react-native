@@ -31,3 +31,12 @@ export const date2daystr = date => {
         return `${sec} giây trước`;
     }
 }
+
+export const isIncludeChapter = (chapters, chapter) => {
+    for(let i=0; i< chapters.length; i++){
+        if(chapters[i].chapter_id === chapter.chapter_id){
+            return true;
+        }
+    }
+    return false;
+}

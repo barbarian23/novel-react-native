@@ -40,6 +40,7 @@ function* saveChaptersSaga({ value }) {
     try {
         let result = yield call(writeFile, filename, JSON.stringify(chapters));
     } catch (error) {
+        console.log('[ERR]', error);
     }
 }
 

@@ -4,7 +4,7 @@ import {
     SEARCH_APPEND_NOVELS,
     SEARCH_NOVELS
 } from "../../action/seeAll/seeAll.action";
-import { View, SafeAreaView, ScrollView, FlatList, RefreshControl, Text, Image, StyleSheet } from "react-native";
+import { View, SafeAreaView, FlatList, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
 import { Rating } from 'react-native-ratings';
 import * as Progress from 'react-native-progress';
 
@@ -92,9 +92,9 @@ function NovelList() {
             <FlatList
                 data={novels}
                 renderItem={({ item, index, separators }) => (
-                    <React.Fragment key={index}>
+                    <TouchableOpacity key={index}>
                         {renderNovel(item)}
-                    </React.Fragment>
+                    </TouchableOpacity>
                 )}
                 refreshing={isLoadingNovels}
                 onRefresh={onRefresh}

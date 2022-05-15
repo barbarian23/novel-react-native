@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { View, SafeAreaView, FlatList, Text, Image, StyleSheet } from "react-native";
+import { View, SafeAreaView, TouchableOpacity, FlatList, Text, Image, StyleSheet } from "react-native";
 import { date2daystr } from '../../service/util';
 
 function ChapterList() {
@@ -8,7 +8,7 @@ function ChapterList() {
 
     const renderChapter = (chapter) => {
         return (
-            <View style={styles.novel}>
+            <View style={styles.chapter}>
                 <View style={styles.pictureSection}>
                     <Image style={styles.novelPicture}
                         source={{
@@ -17,7 +17,7 @@ function ChapterList() {
                     />
                 </View>
 
-                <View style={styles.itemInfo}>
+                <View style={styles.novelInfo}>
                     <Text
                         style={styles.novelName}
                         numberOfLines={2}>
@@ -28,7 +28,7 @@ function ChapterList() {
                         {chapter.totalChapter} Chs | {date2daystr(new Date(chapter.crawler_date))}
                     </Text>
                     <Text
-                        style={styles.chapter}
+                        style={styles.chapterName}
                         numberOfLines={1}>
                         {chapter.chapter_name}
                     </Text>
@@ -42,9 +42,9 @@ function ChapterList() {
             <FlatList
                 data={chapters}
                 renderItem={({ item, index, separators }) => (
-                    <React.Fragment key={index}>
+                    <TouchableOpacity key={index}>
                         {renderChapter(item)}
-                    </React.Fragment>
+                    </TouchableOpacity>
                 )}
             />
 
@@ -55,11 +55,9 @@ function ChapterList() {
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 20,
-    },
-    scrollView: {
-        marginBottom: 310,
-    },
-    novel: {
+        marginBottom: 105,
+    }, 
+    chapter: {
         flexDirection: "row",
         marginVertical: 5,
         borderBottomColor: "#EAEAEA",
@@ -75,7 +73,7 @@ const styles = StyleSheet.create({
         width: 110,
         resizeMode: 'stretch',
     },
-    itemInfo: {
+    novelInfo: {
         flex: 1,
         flexDirection: "column",
         paddingLeft: 15,
@@ -92,7 +90,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginVertical: 2,
     },
-    chapter: {
+    chapterName: {
         color: "#C6C6C6",
         fontSize: 14,
         marginVertical: 2,

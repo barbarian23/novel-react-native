@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     GET_POPULAR_NOVELS
 } from "../../action/homeTab/homeTab.action";
-import { Text, View, Image, StyleSheet } from "react-native";
+import {
+    ADD_CHAPTER
+} from "../../action/history/history.action";
+import { TouchableOpacity, Text, View, Image, StyleSheet } from "react-native";
 import { Link } from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
 import { date2daystr } from '../../service/util';
@@ -11,9 +14,24 @@ import { date2daystr } from '../../service/util';
 function Popular() {
     let { popularNovels, isLoadingPopularNovels } = useSelector(state => state.homeTab);
     let dispatch = useDispatch();
+    
     useEffect(() => {
         dispatch({ type: GET_POPULAR_NOVELS });
     }, []);
+
+    const onNovelPressed = (novel) => {
+        dispatch({
+            type: ADD_CHAPTER,
+            value: {
+                novel_id: novel.novel_id,
+                novel_name: novel.novel_name,
+                totalChapter: novel.totalChapter,
+                crawler_date: novel.crawler_date,
+                chapter_id: novel.recentChapter.chapter_id,
+                chapter_name: novel.recentChapter.chapter_name,
+            }
+        });
+    }
 
     const renderItem = (item) => {
         return (<View style={styles.item}>
@@ -58,9 +76,9 @@ function Popular() {
                 </View>
                 : <View style={styles.listView}>
                     {popularNovels.map((item, index) => {
-                        return <React.Fragment key={index}>
+                        return <TouchableOpacity key={index} onPress={() => onNovelPressed(item)}>
                             {renderItem(item)}
-                        </React.Fragment>
+                        </TouchableOpacity>
                     })}
                 </View>
             }

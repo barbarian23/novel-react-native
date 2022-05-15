@@ -4,9 +4,10 @@ import {
     GET_CHAPTERS_FAIL,
     GET_CHAPTERS_SUCCESS,
 } from "../../action/history/history.action";
+import { isIncludeChapter } from '../../service/util';
 
 const initialState = {
-    chapters: [] ,
+    chapters: [],
     // [
     //     {
     //         novel_id: '',
@@ -34,14 +35,18 @@ export default function historyReducer(state = initialState, action) {
             }
 
         case ADD_CHAPTER:
-            console.log(state.chapters);
-            console.log(action.value);
-            return {
-                ...state,
-                chapters: [
-                    ...state.chapters,
-                    action.value
-                ]
+            if(isIncludeChapter(state.chapters, action.value)){
+                return{
+                    ...state,
+                }
+            }else{
+                return {
+                    ...state,
+                    chapters: [
+                        ...state.chapters,
+                        action.value
+                    ]
+                }
             }
         case DELETE_ALL_CHAPTERS:
             return {
