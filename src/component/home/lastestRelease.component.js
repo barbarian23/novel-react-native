@@ -17,8 +17,8 @@ function LastestRelease() {
 
     let dispatch = useDispatch();
     useEffect(() => {
-        dispatch({ type: GET_LASTEST_RELEASE_NOVELS });
-        dispatch({ type: GET_CHAPTERS });
+        // dispatch({ type: GET_LASTEST_RELEASE_NOVELS });
+        // dispatch({ type: GET_CHAPTERS });
     }, []);
 
     const onNovelPressed = (novel) => {
