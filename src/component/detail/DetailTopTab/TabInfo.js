@@ -31,8 +31,7 @@ const TabInfo = () => {
 
   const getStatus = useCallback(d => {
     return d
-      ? `${d.novel_source ?? ''} | ${d.totalChapter ? `${d.totalChapter} Chs` : ''} | ${
-        d.view ? `${d.view} Views` : ''
+      ? `${d.novel_source ?? ''} | ${d.totalChapter ? `${d.totalChapter} Chs` : ''} | ${d.view ? `${d.view} Views` : ''
       }`
       : '';
   }, []);
@@ -50,17 +49,20 @@ const TabInfo = () => {
     const imageUrl = data ? `https://media.novelextra.com/novel_150_223/${data.novel_id}.jpg` : '';
     return (
       <View style={styles.basicInfoContainer}>
-        <Image
-          source={{
-            uri: imageUrl,
-          }}
-          style={{
-            width: 180,
-            height: 240,
-            marginTop: 16,
-            marginBottom: 16,
-          }}
-        />
+        {imageUrl
+          ? <Image
+            source={{
+              uri: imageUrl,
+            }}
+            style={{
+              width: 180,
+              height: 240,
+              marginTop: 16,
+              marginBottom: 16,
+            }}
+          />
+          : null}
+
         <Text style={styles.authorName}>{getAuthorName(data)}</Text>
         <Text style={styles.genre}>{getGenre(data)}</Text>
         <Text style={styles.status}>{getStatus(data)}</Text>
@@ -105,9 +107,9 @@ const TabInfo = () => {
     const genres = data?.novel_genres ?? [];
     return (
       <View style={styles.genreItemContainer}>
-        {genres.map((item) => {
+        {genres.map((item, index) => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity key={index}>
               <Text style={styles.genreItem}>
                 {item}
               </Text>

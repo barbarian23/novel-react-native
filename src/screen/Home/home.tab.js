@@ -20,9 +20,9 @@ function HomeTab({ navigation }) {
       <SearchBar />
       <ScrollView>
         <FunctionsBar navigation={navigation} />
-        <LastestRelease />
+        <LastestRelease navigation={navigation}/>
         <NewListComponent />
-        <Popular />
+        <Popular navigation={navigation}/>
         <CompleteListComponent />
       </ScrollView>
     </View>

@@ -9,7 +9,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { SeeAll, Home } from "./src/screen";
+import { SeeAll, Home, History } from "./src/screen";
 const Stack = createStackNavigator();
 
 import { Provider } from 'react-redux';
@@ -31,7 +31,7 @@ sagaMiddleware.run(rootSaga)
 
 const App = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Home">
@@ -56,6 +56,12 @@ const App = () => {
             <Stack.Screen
               name="ReadScreen"
               component={ReadScreen}
+              options={{
+                headerShown: false
+              }} />
+            <Stack.Screen
+              name="History"
+              component={History}
               options={{
                 headerShown: false
               }} />

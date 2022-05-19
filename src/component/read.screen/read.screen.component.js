@@ -13,10 +13,10 @@ import { useRoute } from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
 
 const getHtmlContent = (content) => `
-<html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-${content}
-</html>
+  <html>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    ${content}
+  </html>
 `;
 
 const ReadScreenComponent = () => {

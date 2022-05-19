@@ -40,7 +40,9 @@ const HorizontalList = ({ data }) => {
     }
 
     return (
-      <TouchableOpacity style={styles.itemWrapContainer} onPress={onItemPress}>
+      <TouchableOpacity 
+        style={styles.itemWrapContainer} 
+        onPress={onItemPress}>
         <View style={styles.itemContainer}>
           <Image
             source={{
@@ -80,6 +82,7 @@ const HorizontalList = ({ data }) => {
     <VirtualizedList
       data={data}
       renderItem={({ item }) => ListItem(item)}
+      keyExtractor={(item, index) => index.toString()}
       getItemCount={(d) => d.length}
       getItem={(d, index) => d[index]}
       horizontal

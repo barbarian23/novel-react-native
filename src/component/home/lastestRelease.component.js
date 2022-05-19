@@ -5,44 +5,49 @@ import {
 } from "../../action/homeTab/homeTab.action";
 import {
     GET_CHAPTERS,
-    ADD_CHAPTER
+    // ADD_CHAPTER
 } from "../../action/history/history.action";
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Link } from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
 import { date2daystr } from '../../service/util';
 
-function LastestRelease() {
+function LastestRelease({ navigation }) {
     let { lastestReleaseNovels, isLoadingLastestReleaseNovels } = useSelector(state => state.homeTab);
 
     let dispatch = useDispatch();
     useEffect(() => {
-        // dispatch({ type: GET_LASTEST_RELEASE_NOVELS });
-        // dispatch({ type: GET_CHAPTERS });
+        dispatch({ type: GET_LASTEST_RELEASE_NOVELS });
+        dispatch({ type: GET_CHAPTERS });
     }, []);
 
     const onNovelPressed = (novel) => {
-        dispatch({
-            type: ADD_CHAPTER,
-            value: {
-                novel_id: novel.novel_id,
-                novel_name: novel.novel_name,
-                totalChapter: novel.totalChapter,
-                crawler_date: novel.crawler_date,
-                chapter_id: novel.recentChapter.chapter_id,
-                chapter_name: novel.recentChapter.chapter_name,
-            }
-        });
+        navigation.navigate('Detail', { novel_id: novel.novel_id })
+        // dispatch({
+        //     type: ADD_CHAPTER,
+        //     value: {
+        //         novel_id: novel.novel_id,
+        //         novel_name: novel.novel_name,
+        //         totalChapter: novel.totalChapter,
+        //         crawler_date: novel.crawler_date,
+        //         chapter_id: novel.recentChapter.chapter_id,
+        //         chapter_name: novel.recentChapter.chapter_name,
+        //     }
+        // });
     }
 
     const renderItem = (item) => {
+        const imageUrl = item.novel_id ? `https://media.novelextra.com/novel_150_223/${item.novel_id}.jpg` : '';
+
         return (<View style={styles.item}>
             <View style={styles.pictureSection}>
-                <Image style={styles.novelPicture}
-                    source={{
-                        uri: `https://media.novelextra.com/novel_150_223/${item.novel_id}.jpg`,
-                    }}
-                />
+                {imageUrl
+                    ? <Image style={styles.novelPicture}
+                        source={{
+                            uri: `https://media.novelextra.com/novel_150_223/${item.novel_id}.jpg`,
+                        }}
+                    />
+                    : null}
             </View>
 
             <View style={styles.itemInfo}>
@@ -79,7 +84,7 @@ function LastestRelease() {
                 </View>
                 : <View style={styles.listView}>
                     {lastestReleaseNovels.map((item, index) => {
-                        return <TouchableOpacity key={index} onPress={()=> {onNovelPressed(item)}}>
+                        return <TouchableOpacity key={index} onPress={() => { onNovelPressed(item) }}>
                             {renderItem(item)}
                         </TouchableOpacity>
                     })}
@@ -138,7 +143,7 @@ const styles = StyleSheet.create({
     itemInfo: {
         flex: 5,
         flexDirection: "column",
-        paddingLeft: 15,
+        paddingLeft: 20,
         paddingRight: 5,
     },
     novelName: {

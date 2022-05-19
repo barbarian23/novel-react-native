@@ -1,4 +1,4 @@
-import React, { useEffect }  from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     GET_POPULAR_NOVELS
@@ -11,26 +11,28 @@ import { Link } from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
 import { date2daystr } from '../../service/util';
 
-function Popular() {
+function Popular({ navigation }) {
     let { popularNovels, isLoadingPopularNovels } = useSelector(state => state.homeTab);
     let dispatch = useDispatch();
-    
+
     useEffect(() => {
         dispatch({ type: GET_POPULAR_NOVELS });
     }, []);
 
     const onNovelPressed = (novel) => {
-        dispatch({
-            type: ADD_CHAPTER,
-            value: {
-                novel_id: novel.novel_id,
-                novel_name: novel.novel_name,
-                totalChapter: novel.totalChapter,
-                crawler_date: novel.crawler_date,
-                chapter_id: novel.recentChapter.chapter_id,
-                chapter_name: novel.recentChapter.chapter_name,
-            }
-        });
+        navigation.navigate('Detail', { novel_id: novel.novel_id })
+
+        // dispatch({
+        //     type: ADD_CHAPTER,
+        //     value: {
+        //         novel_id: novel.novel_id,
+        //         novel_name: novel.novel_name,
+        //         totalChapter: novel.totalChapter,
+        //         crawler_date: novel.crawler_date,
+        //         chapter_id: novel.recentChapter.chapter_id,
+        //         chapter_name: novel.recentChapter.chapter_name,
+        //     }
+        // });
     }
 
     const renderItem = (item) => {
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     },
     loading: {
         alignItems: "center",
-    },  
+    },
     item: {
         flexDirection: "row",
         marginVertical: 8,

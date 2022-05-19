@@ -48,6 +48,7 @@ const TabChapter = () => {
       <VirtualizedList
         data={data}
         renderItem={({item}) => <RenderItem item={item} />}
+        keyExtractor={(item, index) => index.toString()}
         getItemCount={(d) => d.length}
         getItem={(d, index) => d[index]}
       />
