@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
         height: 90,
         width: 70,
         resizeMode: 'stretch',
+        borderRadius: 5,
     },
     itemInfo: {
         flex: 5,

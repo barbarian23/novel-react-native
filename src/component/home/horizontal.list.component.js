@@ -101,6 +101,8 @@ const styles = StyleSheet.create({
   itemImage: {
     width: 90,
     height: 125,
+    borderRadius: 5,
+
   },
   bookName: {
     fontSize: 14,

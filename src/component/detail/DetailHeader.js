@@ -23,7 +23,8 @@ const DetailHeader = (props) => {
         imgSource={icClose}
         onPress={onBackPress}
       />
-      <Text>
+      <Text style={styles.title}
+        numberOfLines={1}>
         {title}
       </Text>
       <ImageButton
@@ -41,6 +42,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 48,
   },
+  title: {
+    color: 'black',
+    alignItems: 'center',
+    maxWidth: '70%',
+  }
 });
 
 export default memo(DetailHeader);
