@@ -16,7 +16,6 @@ const updateHistory = (historyChapters, newChapter) => {
             return historyChapters;
         } else {
             //update chapter
-            console.log('update', index);
             historyChapters.splice(index, 1);
             return [
                 newChapter,
