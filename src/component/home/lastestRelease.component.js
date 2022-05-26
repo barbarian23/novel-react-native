@@ -5,7 +5,6 @@ import {
 } from "../../action/homeTab/homeTab.action";
 import {
     GET_CHAPTERS,
-    // ADD_CHAPTER
 } from "../../action/history/history.action";
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Link } from '@react-navigation/native';
@@ -23,17 +22,6 @@ function LastestRelease({ navigation }) {
 
     const onNovelPressed = (novel) => {
         navigation.navigate('Detail', { novel_id: novel.novel_id })
-        // dispatch({
-        //     type: ADD_CHAPTER,
-        //     value: {
-        //         novel_id: novel.novel_id,
-        //         novel_name: novel.novel_name,
-        //         totalChapter: novel.totalChapter,
-        //         crawler_date: novel.crawler_date,
-        //         chapter_id: novel.recentChapter.chapter_id,
-        //         chapter_name: novel.recentChapter.chapter_name,
-        //     }
-        // });
     }
 
     const renderItem = (item) => {

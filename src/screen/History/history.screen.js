@@ -7,7 +7,7 @@ function History({ navigation }) {
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
-      <ChapterList />
+      <ChapterList navigation={navigation}/>
     </View>
   );
 }

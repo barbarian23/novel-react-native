@@ -4,7 +4,33 @@ import {
     GET_CHAPTERS_FAIL,
     GET_CHAPTERS_SUCCESS,
 } from "../../action/history/history.action";
-import { isIncludeChapter } from '../../service/util';
+import { getChapterSameNovel } from '../../service/util';
+
+const updateHistory = (historyChapters, newChapter) => {
+    let index = getChapterSameNovel(historyChapters, newChapter);
+
+    if (index >= 0) {
+        //same novel
+        if (newChapter.chapter_id === historyChapters[index].chapter_id) {
+            //same chapter
+            return historyChapters;
+        } else {
+            //update chapter
+            console.log('update', index);
+            historyChapters.splice(index, 1);
+            return [
+                newChapter,
+                ...historyChapters,
+            ]
+        }
+    } else {
+        //new chapter
+        return [
+            newChapter,
+            ...historyChapters,
+        ]
+    }
+}
 
 const initialState = {
     chapters: [],
@@ -35,19 +61,11 @@ export default function historyReducer(state = initialState, action) {
             }
 
         case ADD_CHAPTER:
-            if(isIncludeChapter(state.chapters, action.value)){
-                return{
-                    ...state,
-                }
-            }else{
-                return {
-                    ...state,
-                    chapters: [
-                        ...state.chapters,
-                        action.value
-                    ]
-                }
+            return {
+                ...state,
+                chapters: updateHistory(state.chapters, action.value),
             }
+
         case DELETE_ALL_CHAPTERS:
             return {
                 ...state,

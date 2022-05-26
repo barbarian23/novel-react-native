@@ -40,3 +40,12 @@ export const isIncludeChapter = (chapters, chapter) => {
     }
     return false;
 }
+
+export const getChapterSameNovel = (chapters, chapter) => {
+    for(let i=0; i< chapters.length; i++){
+        if(chapters[i].novel_id === chapter.novel_id){
+            return i;
+        }
+    }
+    return -1;
+}

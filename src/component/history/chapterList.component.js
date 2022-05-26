@@ -3,8 +3,12 @@ import { useSelector } from 'react-redux';
 import { View, SafeAreaView, TouchableOpacity, FlatList, Text, Image, StyleSheet } from "react-native";
 import { date2daystr } from '../../service/util';
 
-function ChapterList() {
+function ChapterList({ navigation }) {
     let { chapters } = useSelector(state => state.history);
+
+    const onChapterPress = (item) => {
+        navigation.navigate('ReadScreen', { novel_id: item.novel_id, chapter_id: item.chapter_id })
+    }
 
     const renderChapter = (chapter) => {
         return (
@@ -42,7 +46,7 @@ function ChapterList() {
             <FlatList
                 data={chapters}
                 renderItem={({ item, index, separators }) => (
-                    <TouchableOpacity key={index}>
+                    <TouchableOpacity key={index} onPress={() => onChapterPress(item)}>
                         {renderChapter(item)}
                     </TouchableOpacity>
                 )}
@@ -56,7 +60,8 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 20,
         marginBottom: 105,
-    }, 
+        minHeight: '100%',
+    },
     chapter: {
         flexDirection: "row",
         marginVertical: 5,
@@ -70,8 +75,9 @@ const styles = StyleSheet.create({
     },
     novelPicture: {
         height: 140,
-        width: 110,
+        width: 100,
         resizeMode: 'stretch',
+        borderRadius: 10,
     },
     novelInfo: {
         flex: 1,
