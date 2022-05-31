@@ -58,10 +58,11 @@ export default function detailReducer(state = initState, action) {
       };
     }
     case GET_NOVEL_CHAPTER.SUCCESS: {
+      console.log("current length",action.value.length);
       return {
         ...state,
         chapter: {
-          data: action.value,
+          data: [...action.value],
           loading: false,
         },
       };

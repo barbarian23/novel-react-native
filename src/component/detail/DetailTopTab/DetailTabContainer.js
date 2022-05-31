@@ -20,7 +20,7 @@ import {
   ScrollView,
 } from 'react-native';
 import ImageButton from '../../Button/ImageButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   GET_NOVEL_CHAPTER,
   GET_NOVEL_INFO,
@@ -38,6 +38,10 @@ const Tab = createMaterialTopTabNavigator();
 const DetailTabContainer = () => {
   const route = useRoute();
   let dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  let { chapters } = useSelector(state => state.history);
+  let { chapter } = useSelector(state => state.detail);
 
   useEffect(() => {
     const { novel_id: id } = route.params;
@@ -56,6 +60,22 @@ const DetailTabContainer = () => {
       </Text>
     );
   };
+
+  const getCurrentHistoryChapter = () => {
+    const { novel_id: id } = route.params;
+    console.log("novel_id",route.params.novel_id);
+    if (chapters == null) {
+      navigation.navigate('ReadScreen', { novel_id: id, chapter_id: chapter.data[0].chapter_id })
+    } else {
+      const currentHistoryChapter = chapters.filter(item => item.novel_id === id);
+
+      if (currentHistoryChapter.length == 0) {
+        navigation.navigate('ReadScreen', { novel_id: id, chapter_id: chapter.data[0].chapter_id })
+      } else {
+        navigation.navigate('ReadScreen', { novel_id: id, chapter_id: currentHistoryChapter[0].chapter_id })
+      }
+    }
+  }
 
   const bottomView = useMemo(() => {
     return (
@@ -84,6 +104,7 @@ const DetailTabContainer = () => {
             flexDirection: 'row',
             backgroundColor: 'rgb(17, 107, 204)',
           }}
+          onPress={getCurrentHistoryChapter}
         >
           <ImageButton
             imgSource={require('../../../assets/ic_read.png')}
@@ -111,7 +132,7 @@ const DetailTabContainer = () => {
         </TouchableOpacity>
       </View>
     );
-  }, []);
+  }, [chapter]);
 
   const tabNavigator = useMemo(() => {
     return (
